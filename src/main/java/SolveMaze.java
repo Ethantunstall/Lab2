@@ -16,7 +16,7 @@ public class SolveMaze {
      * @param unused unused input arguments
      */
 
-    public static void main(final String[] unused) {
+    public static void main(final String[] unused) throws InterruptedException{
         /*
          * Create a new 10 x 10 maze. Feel free to change these values.
          */
@@ -34,13 +34,26 @@ public class SolveMaze {
          * Feel free to adjust this number if you experiment with other mazes.
          */
         for (int step = 0; step < 1000; step++) {
-            // Implement your maze solving algorithm here
+            if (maze.canMove()) {
+                maze.move();
+                maze.turnRight();
+            }
+            while (maze.canMove() == false) {
+                maze.turnLeft();
+            }
+            if (maze.isFinished() == true) {
+                System.out.println(step);
+                break;
+            }
         }
+        Thread.sleep(1000);
 
         if (maze.isFinished()) {
             System.out.println("You solved the maze!");
         } else {
             System.out.println("Try again!");
         }
+        System.out.println(maze);
+
     }
 }
